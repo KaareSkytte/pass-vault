@@ -5,7 +5,12 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"syscall"
 
+	"golang.org/x/term"
+
+	"github.com/kaareskytte/pass-vault/internal/vault"
 	"github.com/spf13/cobra"
 )
 
@@ -15,7 +20,35 @@ var listCmd = &cobra.Command{
 	Short: "Lists all entries in the vault",
 
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("list called")
+		if _, err := os.Stat(vault.DefaultVaultFile); err != nil {
+			fmt.Println("Create vault before adding entries with: pass-vault init")
+			return
+		}
+
+		fmt.Print("Enter master password: ")
+		masterPassword, err := term.ReadPassword(int(syscall.Stdin))
+		if err != nil {
+			fmt.Println("Invalid password")
+			return
+		}
+		fmt.Println()
+
+		v, err := vault.LoadVault(string(masterPassword), vault.DefaultVaultFile)
+		if err != nil {
+			fmt.Printf("Couldn't load vault: %v", err)
+			return
+		}
+
+		if len(v.Entries) < 1 {
+			fmt.Println("No entries yet")
+			fmt.Println("Add entries with: pass-vault add \"entry-name-here\"")
+			return
+		}
+
+		fmt.Printf("Found %d entries:\n", len(v.Entries))
+		for _, entry := range v.Entries {
+			fmt.Println(entry.Name)
+		}
 	},
 }
 
