@@ -65,8 +65,8 @@ pass-vault delete "Gmail"
 
 ## Architecture
 
-Encryption: AES-256-GCM authenticated encryption
-Key Derivation: Argon2 with salt for password-based key derivation
-Storage: Local encrypted JSON files with secure file permissions
-CLI Framework: Built with Cobra for professional command-line interface
+- Encryption: AES-256-GCM authenticated encryption
+- Key Derivation: Argon2 with salt for password-based key derivation
+- Storage: Local encrypted JSON files with secure file permissions
+- CLI Framework: Built with Cobra for professional command-line interface
 
