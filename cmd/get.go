@@ -21,7 +21,7 @@ var getCmd = &cobra.Command{
 
 	Run: func(cmd *cobra.Command, args []string) {
 		if _, err := os.Stat(vault.DefaultVaultFile); err != nil {
-			fmt.Println("Create vault before adding entries with: pass-vault init")
+			fmt.Println("Create vault before getting entries with: pass-vault init")
 			return
 		}
 
