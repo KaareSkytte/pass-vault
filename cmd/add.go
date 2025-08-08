@@ -75,6 +75,16 @@ var addCmd = &cobra.Command{
 			Updated:  time.Now(),
 		}
 
+		url, _ := cmd.Flags().GetString("url")
+		if url != "" {
+			entry.URL = url
+		}
+
+		note, _ := cmd.Flags().GetString("note")
+		if note != "" {
+			entry.Notes = note
+		}
+
 		err = v.AddEntry(entryName, entry)
 		if err != nil {
 			fmt.Printf("Couldn't add entry: %v\n", err)
@@ -93,6 +103,8 @@ var addCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(addCmd)
+	addCmd.Flags().StringP("url", "u", "", "Add url for entry")
+	addCmd.Flags().StringP("note", "n", "", "Add note for entry")
 
 	// Here you will define your flags and configuration settings.
 
