@@ -9,6 +9,8 @@ import (
 	"github.com/kaareskytte/pass-vault/internal/crypto"
 )
 
+const DefaultVaultFile = ".pass-vault.json"
+
 func NewVault() *Vault {
 	entries := make(map[string]Entry)
 	vault := Vault{

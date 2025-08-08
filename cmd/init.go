@@ -5,7 +5,12 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"syscall"
 
+	"golang.org/x/term"
+
+	"github.com/kaareskytte/pass-vault/internal/vault"
 	"github.com/spf13/cobra"
 )
 
@@ -14,13 +19,32 @@ var initCmd = &cobra.Command{
 	Use:   "init",
 	Short: "Initialize a new vault",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("init called")
+		if _, err := os.Stat(vault.DefaultVaultFile); err == nil {
+			fmt.Println("Vault already exists! Use a different command to open it.")
+			return
+		}
+
+		fmt.Print("Enter master password: ")
+		password, err := term.ReadPassword(int(syscall.Stdin))
+		if err != nil {
+			fmt.Println("Invalid password")
+			return
+		}
+		fmt.Println()
+
+		v := vault.NewVault()
+		err = v.Save(string(password), vault.DefaultVaultFile)
+		if err != nil {
+			fmt.Printf("Failed to create vault: %v\n", err)
+			return
+		}
+
+		fmt.Println("Vault created succesfully!")
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(initCmd)
-
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
