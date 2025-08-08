@@ -1,4 +1,4 @@
-# pass-vault
+# Pass-Vault
 
 A secure CLI password manager built with Go, featuring AES-256-GCM encryption and Argon2 key derivation.
 
