@@ -11,6 +11,29 @@ A secure CLI password manager built with Go, featuring AES-256-GCM encryption an
 - **Rich Entries**: Store username, password, URL, and notes
 - **Fast**: Built with Go for optimal performance
 
+## Why pass-vault?
+
+### The Problem
+- **Cloud Password Managers**: Require internet, monthly fees, and trust in third parties
+- **Browser Password Managers**: Limited to browsers, sync issues, vendor lock-in
+- **Existing CLI Tools**: Often complex, bloated, or lack modern encryption standards
+
+### The Solution
+pass-vault provides a **simple, secure, local-first** password management solution:
+
+- **Privacy First**: Your passwords never leave your machine
+- **Zero Cost**: No subscriptions or cloud dependencies  
+- **Developer Friendly**: CLI-first design for terminal users
+- **Modern Crypto**: Industry-standard encryption (AES-256-GCM + Argon2)
+- **Lightweight**: Single binary, no dependencies
+- **Offline**: Works without internet connection
+
+### Perfect For
+- Developers who live in the terminal
+- Privacy-conscious users
+- Teams needing local password storage
+- Anyone wanting full control over their credentials
+
 ## Quick Start
 
 ### Option 1: Download Pre-built Binary (Recommended)
