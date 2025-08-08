@@ -4,8 +4,10 @@ Copyright © 2025 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"bufio"
 	"fmt"
 	"os"
+	"strings"
 	"syscall"
 	"time"
 
@@ -47,8 +49,14 @@ var addCmd = &cobra.Command{
 		entryName := args[0]
 
 		fmt.Print("Enter username: ")
-		var username string
-		fmt.Scanln(&username)
+		scanner := bufio.NewScanner(os.Stdin)
+		scanner.Scan()
+		username := strings.TrimSpace(scanner.Text())
+
+		if strings.Contains(username, " ") {
+			fmt.Println("Error: Username cannot contain spaces")
+			return
+		}
 
 		fmt.Print("Enter password: ")
 		password, err := term.ReadPassword(int(syscall.Stdin))
